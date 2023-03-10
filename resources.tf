@@ -1,5 +1,5 @@
 resource "aws_vpc" "prime" {
-  cidr_block       = "10.0.0.0/16"
+  cidr_block       = "var.vpc_cidr"
   instance_tenancy = "default"
 
   tags = {
@@ -22,8 +22,8 @@ resource "aws_internet_gateway" "prime-igw" {
 
 resource "aws_subnet" "prime-pub1" {
   vpc_id            = aws_vpc.prime.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block        = "var.prime-pub1-cidr"     
+  availability_zone = "var.prime-pub1-az" 
 
   tags = {
     Name = "prime-pub1"
@@ -34,8 +34,8 @@ resource "aws_subnet" "prime-pub1" {
 
 resource "aws_subnet" "prime-pub2" {
   vpc_id            = aws_vpc.prime.id
-  cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block        = "var.prime-pub2-cidr"      
+  availability_zone = "var.prime-pub2-az"
 
   tags = {
     Name = "prime-pub2"
@@ -76,8 +76,8 @@ resource "aws_route_table_association" "prime-pub2" {
 # creating a private subnet 1
 resource "aws_subnet" "prime-private1" {
   vpc_id            = aws_vpc.prime.id
-  cidr_block        = "10.0.4.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block        = "prime-private1-cidr"     #10.0.4.0/24
+  availability_zone = "var.prime-private-az"
 
   tags = {
     Name = "prime-private1"
@@ -88,8 +88,8 @@ resource "aws_subnet" "prime-private1" {
 
 resource "aws_subnet" "prime-private2" {
   vpc_id            = aws_vpc.prime.id
-  cidr_block        = "10.0.5.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block        = "var.prime-private2-cidr"     
+  availability_zone = "var.prime-private2-az"
 
   tags = {
     Name = "prime-private2"
